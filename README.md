@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+#main.jsx
+-> 시작 페이지. 성경 추출 후 랜덤값 돌리고 출력하는 코드 완성
 
-## Getting Started
+#page 1
+-> main.jsx와 비슷하게 구성.
+    '오늘 시간' 띄우는 창
+    랜덤 돌리는 '버튼' 2개: 클릭시 #page2로 다이렉트 버튼 1과 2를 누르면 다르게 받아서 랜덤함수를 버튼, 장, 절 로 해 1이면 월/일, 2이면 시/분 받기
+    로고 '버튼': 클릭시 #page1으로 다이렉트
+    사용방법 '버튼': 클릭시 #page4로 다이렉트
+    개발자 정보 '버튼': 클릭시 #page5로 다이렉트
 
-First, run the development server:
+#page2
+-> 랜덤함수 프로세싱 후 결과 말씀 띄우는 창
+    '해당 장' 읽기 '버튼' : 클릭시 전체 장 출력
+    다시뽑기 '버튼' : 랜덤함수 재 프로새싱, 결과 재출력 or 그냥 #page2 리다이렉트
+    로고 '버튼': 클릭시 #page1으로 다이렉트
+    홈으로 돌아가기 '버튼': 클릭시 #page1로 다이렉트
+    개발자 정보 '버튼': 클릭시 #page5로 다이렉트
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+#랜덤함수(book, chapter, verse)
+    book : 0이면 월/일 받기 67이면 시/분 받기 1부터 66 사이 n이면 랜덤함수X
+    book == 0||67 이라면 랜덤함수 돌려서 book 재설정
+    아니라면 그냥 온 정보 그대로
+    return text 해서 해당 구절 보내주기
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#page3
+-> 전체 장 출력하는 창
+->> 결과말씀은 하이라이트
+    내 구절로 이동 '버튼' : 클릭시 #page2로 다이렉트, 현재 값 기억해 랜덤함수 돌아가지 않게 하기
+    하이라이트 '없애기/표시하기' '버튼' : 클릭시 결과말씀 하이라이트 제거/재표시
+    로고 '버튼': 클릭시 #page1으로 다이렉트
+    홈으로 돌아가기 '버튼': 클릭시 #page1로 다이렉트
+    개발자 정보 '버튼': 클릭시 #page5로 다이렉트
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#page4
+-> 사용방법 설명하는 창
+->> 웹 개발 이유 기능 설명 문의 등
+    chat GPT, 말씀 오픈소스, git 등 '버튼' : 해당 링크로 이동
+    로고 '버튼': 클릭시 #page1으로 다이렉트
+    홈으로 돌아가기 '버튼': 클릭시 #page1로 다이렉트
+    개발자 정보 '버튼': 클릭시 #page5로 다이렉트
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+#page 5
+-> 개발자 정보
+->> 연락처, 자기소개 및 자랑 등
+    후원계좌 적어놓기 히히
+    로고 '버튼': 클릭시 #page1으로 다이렉트
+    홈으로 돌아가기 '버튼': 클릭시 #page1로 다이렉트
+    사용방법 '버튼': 클릭시 #page4로 다이렉트
