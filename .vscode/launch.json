@@ -1,0 +1,108 @@
+
+{
+  "version": "0.2.0",
+  "configurations": [
+    
+    {
+        "name": "Attach by Process ID",
+        "processId": "${command:PickProcess}",
+        "request": "attach",
+        "skipFiles": [
+            "<node_internals>/**"
+        ],
+        "type": "node"
+    },
+    {
+        "name": "Attach",
+        "port": 9229,
+        "request": "attach",
+        "skipFiles": [
+            "<node_internals>/**"
+        ],
+        "type": "node"
+    },
+    {
+        "name": "Launch Edge",
+        "request": "launch",
+        "type": "msedge",
+        "url": "http://localhost:8080",
+        "webRoot": "${workspaceFolder}"
+    },
+    {
+        "name": "Attach to Edge",
+        "port": 9222,
+        "request": "attach",
+        "type": "msedge",
+        "webRoot": "${workspaceFolder}"
+    },
+    {
+        "type": "node",
+        "request": "attach",
+        "name": "Containers: Attach to Node",
+        "remoteRoot": "/usr/src/app"
+    },
+    {
+        "name": "Containers .NET Attach (Preview)",
+        "type": "docker",
+        "request": "attach",
+        "platform": "netCore",
+        "sourceFileMap": {
+            "/src": "${workspaceFolder}"
+        }
+    },
+    {
+        "type": "cmake",
+        "request": "launch",
+        "name": "CMake: Configure project",
+        "cmakeDebugType": "configure",
+        "clean": false,
+        "configureAll": false
+    },
+    {
+        "type": "cmake",
+        "request": "launch",
+        "name": "CMake: Externally launched",
+        "cmakeDebugType": "external",
+        "pipeName": "<...>"
+    },
+    {
+        "type": "cmake",
+        "request": "launch",
+        "name": "CMake: Script debugging",
+        "cmakeDebugType": "script",
+        "scriptPath": "${workspaceFolder}/<...>.cmake"
+    },
+    {
+        "type": "cmake",
+        "request": "launch",
+        "name": "CMake: Configure project",
+        "cmakeDebugType": "configure",
+        "clean": false,
+        "configureAll": false
+    },
+    {
+        "name": "Launch Chrome",
+        "request": "launch",
+        "type": "chrome",
+        "url": "http://localhost:8080",
+        "webRoot": "${workspaceFolder}"
+    },
+    {
+        "name": "Attach to Chrome",
+        "port": 9222,
+        "request": "attach",
+        "type": "chrome",
+        "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Next.js: dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 9229,
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}
