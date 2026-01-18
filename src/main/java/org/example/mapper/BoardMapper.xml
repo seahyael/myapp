@@ -1,0 +1,27 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.BoardMapper">
+
+    <select id="getList" resultType="boardVO">
+        SELECT * FROM scriptures ORDER BY id DESC
+    </select>
+
+    <select id="get" parameterType="int" resultType="boardVO">
+        SELECT * FROM scriptures WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="boardVO">
+        INSERT INTO scriptures (book, chapter, verse, text)
+        VALUES (#{book}, #{chapter}, #{verse}, #{text})
+    </insert>
+
+    <update id="update" parameterType="boardVO">
+        UPDATE scriptures SET favorite = NOT favorite WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM scriptures WHERE id = #{id}
+    </delete>
+
+</mapper>
