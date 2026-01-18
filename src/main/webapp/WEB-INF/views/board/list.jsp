@@ -33,16 +33,42 @@
     <tbody>
     <c:forEach var="board" items="${list}">
         <tr>
+            <!-- 번호 -->
             <td><c:out value="${board.id}" /></td>
+
+            <!-- 책 -->
             <td>
                 <a href="view?id=${board.id}">
-                    <c:out value="${board.title}" />
+                    <c:out value="${board.book}" />
                 </a>
             </td>
-            <td><c:out value="${board.writer}" />123</td>
-            <td><fmt:formatDate value="${board.createdAt}" pattern="yyyy-MM-dd HH:mm" /></td>
+
+            <!-- 장 -->
+            <td><c:out value="${board.chapter}" /></td>
+
+            <!-- 절 -->
+            <td><c:out value="${board.verse}" /></td>
+
+            <!-- 구절 -->
+            <td><c:out value="${board.text}" /></td>
+
+            <!-- 즐겨찾기 -->
+            <td>
+                <c:choose>
+                    <c:when test="${board.favorite}">
+                        ★
+                    </c:when>
+                    <c:otherwise>
+                        ☆
+                    </c:otherwise>
+                </c:choose>
+            </td>
+
+            <!-- 추가된 시간 -->
+            <td><c:out value="${board.added_at}" /></td>
         </tr>
     </c:forEach>
+
     </tbody>
 </table>
 

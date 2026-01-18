@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-@RequestMapping("/scriptures")
+@RequestMapping("/board")
 public class BoardController {
 
     @Autowired
@@ -22,41 +22,41 @@ public class BoardController {
     @GetMapping("/list")
     public String list(Model model) {
         model.addAttribute("list", boardMapper.getList());
-        return "scriptures/list";
+        return "board/list";
     }
 
     @GetMapping("/write")
     public String writeForm() {
-        return "scriptures/write";
+        return "board/write";
     }
 
     @PostMapping("/write")
     public String write(BoardVO board) {
         boardMapper.insert(board);
-        return "redirect:/scriptures/list";
+        return "redirect:/board/list";
     }
 
     @GetMapping("/view")
     public String view(@RequestParam int id, Model model) {
-        model.addAttribute("scriptures", boardMapper.get(id));
-        return "scriptures/view";
+        model.addAttribute("board", boardMapper.get(id));
+        return "board/view";
     }
 
     @GetMapping("/edit")
     public String edit_form(@RequestParam int id, Model model) {
-        model.addAttribute("scriptures", boardMapper.get(id));
-        return "scriptures/edit";
+        model.addAttribute("board", boardMapper.get(id));
+        return "board/edit";
     }
 
     @PostMapping("/edit")
     public String update(BoardVO board) {
         boardMapper.update(board);
-        return "redirect:/scriptures/list";
+        return "redirect:/board/list";
     }
 
     @GetMapping("/delete")
     public String delete(@RequestParam int id) {
         boardMapper.delete(id);
-        return "redirect:/scriptures/list";
+        return "redirect:/board/list";
     }
 }
