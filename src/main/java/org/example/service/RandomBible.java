@@ -16,7 +16,6 @@ public class RandomBible {
     private JsonNode bibleData;
     private final ObjectMapper mapper = new ObjectMapper();
 
-    // 서버 시작 시 JSON 파일을 메모리에 로드
     @PostConstruct
     public void init() {
         java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone("Asia/Seoul"));

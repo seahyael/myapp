@@ -25,9 +25,11 @@
             </div>
         </div>
 
+
         <div class="section-2 p-6 text-center">
-            <div id="currentDateTime" class="text-2xl font-bold text-blue-500 mb-4">
-            </div>
+            <div class="text-sm text-gray-400 mb-1">KST (한국 표준시)</div>
+            <div id="currentDateTime" class="text-2xl font-bold text-blue-500 mb-4"></div>
+        </div>
             <div class="relative inline-block">
                 <span class="absolute inset-x-0 bottom-1 h-3 bg-yellow-200 opacity-70"></span>
                 <h2 class="relative text-3xl font-extrabold text-gray-800">지금의 나에게 주시는 말씀</h2>
@@ -48,20 +50,31 @@
 </div>
 
 <script>
-    // 실시간 시각 업데이트 로직
     function updateClock() {
+        // 1. 현재 브라우저의 UTC 시간 구하기
         const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const date = String(now.getDate()).padStart(2, '0');
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
 
+        // 2. UTC 시간에 한국 시간(9시간 = 32400000ms) 더하기
+        const koreaTimeDiff = 9 * 60 * 60 * 1000;
+        const korNow = new Date(utc + koreaTimeDiff);
+
+        // 3. 날짜 및 시간 데이터 추출
+        const year = korNow.getFullYear();
+        const month = String(korNow.getMonth() + 1).padStart(2, '0');
+        const date = String(korNow.getDate()).padStart(2, '0');
+        const hours = String(korNow.getHours()).padStart(2, '0');
+        const minutes = String(korNow.getMinutes()).padStart(2, '0');
+        const seconds = String(korNow.getSeconds()).padStart(2, '0');
+
+        // 4. 화면 출력 (초까지 넣으면 더 생동감이 있습니다)
         document.getElementById('currentDateTime').innerText =
-            `\${year}년 \${month}월 \${date}일 \${hours}시 \${minutes}분`;
+            `\${year}년 \${month}월 \${date}일 \${hours}시 \${minutes}분 \${seconds}초`;
     }
+
+    // 1초마다 업데이트
     setInterval(updateClock, 1000);
-    updateClock();
+    updateClock(); // 초기 실행
 </script>
 </body>
 </html>

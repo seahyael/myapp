@@ -72,4 +72,9 @@ public class BoardController {
 
         return "redirect:/board/list";
     }
+    @GetMapping("/delete")
+    public String delete(@RequestParam int id) {
+        boardMapper.delete(id);
+        return "redirect:/board/list";
+    }
 }
