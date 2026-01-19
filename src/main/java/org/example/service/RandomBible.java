@@ -2,6 +2,7 @@ package org.example.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.example.domain.BoardVO;
 import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.io.InputStream;
@@ -18,6 +19,7 @@ public class RandomBible {
     // 서버 시작 시 JSON 파일을 메모리에 로드
     @PostConstruct
     public void init() {
+        java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone("Asia/Seoul"));
         try (InputStream is = getClass().getResourceAsStream("/bible.json")) {
             JsonNode root = mapper.readTree(is);
             this.bibleData = root.get("verses");
@@ -26,8 +28,9 @@ public class RandomBible {
         }
     }
 
-    public String findVerse(int chapter, int verse) {
-        if (bibleData == null || !bibleData.isArray()) return "데이터 로드 실패";
+    // 반환 타입을 String에서 BoardVO로 변경
+    public BoardVO findVerseVO(int chapter, int verse) {
+        if (bibleData == null || !bibleData.isArray()) return null;
 
         List<JsonNode> candidates = new ArrayList<>();
         for (JsonNode node : bibleData) {
@@ -36,14 +39,17 @@ public class RandomBible {
             }
         }
 
-        if (candidates.isEmpty()) return "해당 구절 없음";
+        if (candidates.isEmpty()) return null;
 
-        // 랜덤 선택
         JsonNode selected = candidates.get(new Random().nextInt(candidates.size()));
-        return String.format("%s %d:%d — %s",
-                selected.get("book_name").asText(),
-                selected.get("chapter").asInt(),
-                selected.get("verse").asInt(),
-                selected.get("text").asText());
+
+        // VO 객체 생성 및 데이터 세팅
+        BoardVO vo = new BoardVO();
+        vo.setBook(selected.get("book_name").asText()); // 실제 성경 이름 (예: 창세기)
+        vo.setChapter(selected.get("chapter").asInt());
+        vo.setVerse(selected.get("verse").asInt());
+        vo.setText(selected.get("text").asText());
+
+        return vo;
     }
 }

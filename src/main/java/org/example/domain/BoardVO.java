@@ -80,14 +80,5 @@ public class BoardVO {
         this.text = text;
     }
 
-    @Override
-    public String toString(){
-        String str = "  " + book + " "
-                + chapter + "장 "
-                + verse  + "절 "
-                + favorite + "  "
-                + added_at;
-        return str;
-    }
 }
 

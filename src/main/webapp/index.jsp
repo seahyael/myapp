@@ -8,6 +8,6 @@
 <h1><%= "Hello World!" %></h1>
 <br/>
 <a href="board/list">list</a>
-<a href="board/main">list</a>
+<a href="board/main">main</a>
 </body>
 </html>

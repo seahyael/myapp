@@ -23,47 +23,53 @@ public class BoardController {
         return "board/list";
     }
 
-    @GetMapping("/main")
+    @Autowired
+    private RandomBible randomBible;
+
+    // Page 1: 메인 뽑기 화면
+    @GetMapping(value = "/main", produces = "text/plain;charset=UTF-8")
     public String mainPage() {
         return "board/main";
     }
 
-    @Autowired
-    private RandomBible randomBible;
+    @GetMapping("/result")
+    public String resultPage(@RequestParam("type") String type, Model model) {
+        int ch, v;
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        if ("date".equals(type)) {
+            ch = cal.get(java.util.Calendar.MONTH) + 1;
+            v = cal.get(java.util.Calendar.DAY_OF_MONTH);
+        } else {
+            ch = cal.get(java.util.Calendar.HOUR_OF_DAY);
+            v = cal.get(java.util.Calendar.MINUTE);
+        }
 
-    @GetMapping(value = "/api/bible", produces = "text/plain;charset=UTF-8")
-    @ResponseBody
-    public String getBibleVerse(@RequestParam("chapter") int chapter, @RequestParam("verse") int verse) {
-        return randomBible.findVerse(chapter, verse);
+        // VO 객체로 받기
+        BoardVO bibleVO = randomBible.findVerseVO(ch, v);
+
+        model.addAttribute("bible", bibleVO); // bible이라는 이름으로 객체 전달
+        return "board/result";
     }
 
     @PostMapping("/write")
     public String write(BoardVO board) {
+        // LocalDate는 DB에서 sysdate 등으로 처리하지 않을 경우 여기서 설정
+        board.setAdded_at(java.time.LocalDate.now());
         boardMapper.insert(board);
         return "redirect:/board/list";
     }
 
-    @GetMapping("/view")
-    public String view(@RequestParam int id, Model model) {
-        model.addAttribute("board", boardMapper.get(id));
-        return "board/view";
-    }
+    @GetMapping("/toggleFavorite")
+    public String toggleFavorite(@RequestParam("id") int id) {
+        // 1. 기존 데이터를 가져옴
+        BoardVO board = boardMapper.get(id);
 
-    @GetMapping("/edit")
-    public String edit_form(@RequestParam int id, Model model) {
-        model.addAttribute("board", boardMapper.get(id));
-        return "board/edit";
-    }
+        // 2. 상태를 반전시킴 (!true = false, !false = true)
+        board.setFavorite(!board.isFavorite());
 
-    @PostMapping("/edit")
-    public String update(BoardVO board) {
+        // 3. 업데이트 수행
         boardMapper.update(board);
-        return "redirect:/board/list";
-    }
 
-    @GetMapping("/delete")
-    public String delete(@RequestParam int id) {
-        boardMapper.delete(id);
         return "redirect:/board/list";
     }
 }
