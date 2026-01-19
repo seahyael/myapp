@@ -73,7 +73,7 @@
 </table>
 
 <div style="text-align: center; margin-top: 20px;">
-    <a href="write">글쓰기</a>
+    <a href="main">뽑기 페이지</a>
 </div>
 </body>
 </html>

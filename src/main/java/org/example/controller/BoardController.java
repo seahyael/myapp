@@ -3,13 +3,11 @@ package org.example.controller;
 import org.example.mapper.BoardMapper;
 import org.example.domain.BoardVO;
 
+import org.example.service.RandomBible;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -25,9 +23,18 @@ public class BoardController {
         return "board/list";
     }
 
-    @GetMapping("/write")
-    public String writeForm() {
-        return "board/write";
+    @GetMapping("/main")
+    public String mainPage() {
+        return "board/main";
+    }
+
+    @Autowired
+    private RandomBible randomBible;
+
+    @GetMapping(value = "/api/bible", produces = "text/plain;charset=UTF-8")
+    @ResponseBody
+    public String getBibleVerse(@RequestParam("chapter") int chapter, @RequestParam("verse") int verse) {
+        return randomBible.findVerse(chapter, verse);
     }
 
     @PostMapping("/write")
