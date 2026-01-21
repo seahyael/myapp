@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <title>내 성경구절 목록</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/common.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/common.js"></script>
     <style>
         .page-container { border: 2px solid #ffcfcf; border-radius: 1.5rem; overflow: hidden; }
         .table-header { background-color: #f0fdf4; border-bottom: 2px solid #a7f3d0; }
