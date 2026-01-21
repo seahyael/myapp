@@ -24,4 +24,11 @@
         DELETE FROM scriptures WHERE id = #{id}
     </delete>
 
+    <select id="getFavoriteList" resultType="boardVO">
+        SELECT * FROM scriptures WHERE favorite = 1 ORDER BY id DESC
+    </select>
+
+    <select id="getListByBook" parameterType="String" resultType="boardVO">
+        SELECT * FROM scriptures WHERE book = #{book} ORDER BY id DESC
+    </select>
 </mapper>

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @Controller
 @RequestMapping("/board")
@@ -18,8 +20,22 @@ public class BoardController {
     private BoardMapper boardMapper;
 
     @GetMapping("/list")
-    public String list(Model model) {
-        model.addAttribute("list", boardMapper.getList());
+    public String list(
+            @RequestParam(value = "book", required = false) String book,
+            @RequestParam(value = "favoriteOnly", required = false) Boolean favoriteOnly,
+            Model model) {
+
+        List<BoardVO> list;
+
+        if (favoriteOnly != null && favoriteOnly) {
+            list = boardMapper.getFavoriteList(); // 즐겨찾기 쿼리
+        } else if (book != null && !book.isEmpty()) {
+            list = boardMapper.getListByBook(book); // 책별 필터 쿼리
+        } else {
+            list = boardMapper.getList(); // 전체 리스트
+        }
+
+        model.addAttribute("list", list);
         return "board/list";
     }
 
