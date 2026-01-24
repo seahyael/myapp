@@ -45,7 +45,7 @@ public class BoardController {
     // Page 1: 메인 뽑기 화면
     @GetMapping(value = "/main", produces = "text/plain;charset=UTF-8")
     public String mainPage() {
-        return "board/main";
+       return "board/main";
     }
 
     @GetMapping("/result")
@@ -88,6 +88,7 @@ public class BoardController {
 
         return "redirect:/board/list";
     }
+
     @GetMapping("/delete")
     public String delete(@RequestParam int id) {
         boardMapper.delete(id);
